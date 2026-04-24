@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keranjang Simple</title>
+
+<style>
+  body { font-family: Arial, sans-serif; display: flex; gap: 40px; padding: 20px; }
+  .product { margin-bottom: 10px; }
+  .cart-item { display: flex; justify-content: space-between; margin: 5px 0; }
+  .cart-box { border: 1px solid #ddd; padding: 10px; width: 250px; border-radius: 5px; }
+  button { cursor: pointer; padding: 4px 8px; }
+</style>
+
+</head>
+<body>
+
+  <div>
+    <h2>Produk</h2>
+    <div class="product">
+      Kaos Islami<br>Rp 100.000
+      <br><button onclick="addToCart('Kaos Islami', 100000)">Tambah</button>
+    </div>
+
+    <div class="product">
+      Hoodie Muslim<br>Rp 150.000
+      <br><button onclick="addToCart('Hoodie Muslim', 150000)">Tambah</button>
+    </div>
+  </div>
+
+  <div class="cart-box">
+    <h3>Keranjang</h3>
+    <div id="cart"></div>
+    <hr>
+    Total: Rp <span id="total">0</span>
+  </div>
+
+
+<script>
+  let cart = [];
+  let total = 0;
+
+  function addToCart(name, price) {
+    cart.push({ name, price });
+    total += price;
+    updateCart();
+  }
+
+  function removeItem(index) {
+    total -= cart[index].price;
+    cart.splice(index, 1);
+    updateCart();
+  }
+
+  function updateCart() {
+    const cartDiv = document.getElementById("cart");
+    const totalSpan = document.getElementById("total");
+
+    cartDiv.innerHTML = "";
+
+    cart.forEach((item, index) => {
+      const div = document.createElement("div");
+      div.classList.add("cart-item");
+      div.innerHTML = `${item.name} - Rp ${item.price.toLocaleString()}
+        <button onclick="removeItem(${index})">X</button>`;
+      cartDiv.appendChild(div);
+    });
+
+    totalSpan.textContent = total.toLocaleString();
+  }
+</script>
+
+</body>
+</html>

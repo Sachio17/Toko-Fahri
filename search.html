@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hasil Pencarian</title>
+<style>
+    body { font-family: Arial, sans-serif; padding:20px; }
+    h2 { margin-bottom:10px; }
+    a { text-decoration:none; color:#1a73ff; }
+    .result-item { margin-bottom:8px; }
+</style>
+
+<script>
+// daftar produk
+const products = [
+  {title: "Kaos Muhammad Ali Training Camp", link: "produk1.html"},
+  {title: "Kaos Umar bin Khattab", link: "produk2.html"},
+  {title: "Kaos Yunus And Nun", link: "produk3.html"},
+  {title: "Hoodie Qur'an Quote", link: "produk4.html"},
+  {title: "Hoodie Istiqamah", link: "produk5.html"},
+  {title: "Topi Islam is Peace", link: "produk6.html"},
+  {title: "Topi Kaligrafi Arab", link: "produk7.html"},
+  {title: "Hoodie Muhammad Ali", link: "produk8.html"},
+  {title: "Rok Panjang Layer", link: "produk9.html"},
+  {title: "Cardigan Rajut Biru", link: "produk23.html"},
+  {title: "Gamis Kombinasi Coklat & Mocca", link: "produk11.html"},
+  {title: "Hijab Syari Pink Soft", link: "produk12.html"},
+  {title: "Celana Cargo Pria Cream", link: "produk24.html"},
+  {title: "Rok Cargo Navy", link: "produk14.html"},
+  {title: "Gamis Syari Polos – Abu Gelap + Khimar Mocca", link: "produk15.html"},
+  {title: "Gamis Kancing Depan Casual", link: "produk16.html"},
+  {title: "Gamis Warna Army Hijau Lembut", link: "produk17.html"},
+  {title: "Celana Jeans Pria Loose Fit", link: "produk18.html"},
+  {title: "Kemeja Linen Abu Abu", link: "produk25.html"},
+  {title: "Koko Modern Hitam", link: "produk26.html"},
+  {title: "Celana Slim Fit Cream", link: "produk27.html"},
+  {title: "Kaos Ramadhan Islami Hitam", link: "produk30.html"},
+  {title: "Dress Putih", link: "produk19.html"},
+  {title: "Maxi Dress Rajut Ribb Beige", link: "produk20.html"},
+  {title: "Sweater Crop Hijau", link: "produk21.html"},
+  {title: "Sweater Rajut Oversize Mustard", link: "produk22.html"}
+];
+
+// ambil kata pencarian dari URL
+function getQuery(){
+    const params = new URLSearchParams(window.location.search);
+    return (params.get("query") || "").toLowerCase();
+}
+
+window.onload = function(){
+    const q = getQuery();
+    document.getElementById("keyword").innerText = q;
+
+    let results = products.filter(p => p.title.toLowerCase().includes(q));
+
+    let box = document.getElementById("results");
+
+    if(results.length === 0){
+        box.innerHTML = "<p>Tidak ada hasil ditemukan.</p>";
+        return;
+    }
+
+    box.innerHTML = results
+        .map(r => `<div class='result-item'><a href='${r.link}'>${r.title}</a></div>`)
+        .join("");
+};
+</script>
+</head>
+<body>
+<h2>Hasil Pencarian: <span id="keyword"></span></h2>
+<div id="results"></div>
+</body>
+</html>
